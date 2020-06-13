@@ -1,5 +1,4 @@
 import React from 'react';
-// import { CallbackButton } from './CallbackButton';
 import { SimpleButton } from './SimpleButton';
 
 export function Summary(props) {

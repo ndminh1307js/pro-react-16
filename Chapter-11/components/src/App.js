@@ -1,17 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Summary } from './Summary';
 
 let names = ['Jess', 'Emily', 'Matt'];
 
 function reverseNames() {
 	names.reverse();
-	ReactDOM.render(<App />, document.getElementById('root'));
 }
 
 function promoteName(name) {
 	names = [name, ...names.filter(val => val !== name)];
-	ReactDOM.render(<App />, document.getElementById('root'));
 }
 
 export default function App() {
