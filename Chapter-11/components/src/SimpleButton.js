@@ -29,15 +29,27 @@ export class SimpleButton extends Component {
 		this.setState({ hasButtonBeenClicked: true })
 		this.props.callback();
 	};
+
+
+	static defaultProps = {
+		disabled: false
+	}
+
+	static propTypes = {
+		text: PropTypes.string,
+		className: PropTypes.string,
+		callback: PropTypes.func,
+		disabled: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+	}
 }
 
-SimpleButton.defaultProps = {
-	disabled: false
-}
+// SimpleButton.defaultProps = {
+// 	disabled: false
+// }
 
-SimpleButton.propTypes = {
-	text: PropTypes.string,
-	className: PropTypes.string,
-	callback: PropTypes.func,
-	disabled: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
-}
+// SimpleButton.propTypes = {
+// 	text: PropTypes.string,
+// 	className: PropTypes.string,
+// 	callback: PropTypes.func,
+// 	disabled: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+// }
