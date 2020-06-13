@@ -5,7 +5,8 @@ export default class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			names: ['Jess', 'Emily', 'Matt']
+			names: ['Jess', 'Emily', 'Matt'],
+			counter: 0
 		};
 	}
 
@@ -19,6 +20,10 @@ export default class App extends Component {
 		this.setState({
 			names: [name, ...this.state.names.filter(val => val !== name)]
 		});
+	}
+
+	incrementCounter = (increment) => {
+		this.setState(state => ({ counter: state.counter + increment }));
 	}
 
 	render() {
@@ -39,6 +44,8 @@ export default class App extends Component {
 								name={name}
 								reverseCallback={this.reverseNames}
 								promoteCallback={this.promoteName}
+								counter={this.state.counter}
+								incrementCallback={this.incrementCounter}
 							/>
 						</tr>
 					))}
