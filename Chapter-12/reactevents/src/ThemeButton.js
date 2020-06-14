@@ -2,17 +2,24 @@ import React, { Component } from 'react';
 
 export class ThemeButton extends Component {
 
-  handleClick = (event) => {
+  handleClick = (event, capturePhase) => {
     console.log(`ThemeButton: Type: ${event.type}
       + Target: ${event.target.tagName}
       + CurrentTarget: ${event.currentTarget.tagName}
     `);
-    this.props.callback(this.props.theme);
+    if (capturePhase) {
+      console.log('Skipped the function prop: capture phase');
+    } else if (event.bubbles && event.target !== event.currentTarget) {
+      console.log('Skipped function prop: bubble phase');
+    } else {
+      console.log('Invoked function prop');
+      this.props.callback(this.props.theme);
+    }
   }
 
   render() {
     return <span className='m-1' onClick={this.handleClick}
-      onClickCapture={this.handleClick}>
+      onClickCapture={e => this.handleClick(e, true)}>
       <button className={`btn btn-${this.props.theme}`}
         onClick={this.handleClick}>
         Select {this.props.theme} Theme
