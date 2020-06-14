@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { Message } from './Message';
-import { List } from './List';
-import { ExternalCounter } from './ExternalCounter';
-import { HooksMessage } from './HooksMessage';
+// import { List } from './List';
+// import { ExternalCounter } from './ExternalCounter';
+// import { HooksMessage } from './HooksMessage';
 
 export default class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			counter: 0,
-			showMessage: true,
+			counterLeft: 0,
+			counterRight: 0,
 		};
 	}
 
-	incrementCounter = () => {
-		this.setState({ counter: this.state.counter + 1 });
-	};
-
-	handleChange = () => {
-		this.setState({ showMessage: !this.state.showMessage });
+	incrementCounter = counter => {
+		if (counter === 'left') {
+			this.setState({ counterLeft: this.state.counterLeft + 1 });
+		} else {
+			this.setState({ counterRight: this.state.counterRight + 1 });
+		}
 	};
 
 	render() {
@@ -26,29 +26,19 @@ export default class App extends Component {
 		return (
 			<div className='container text-center'>
 				<div className='row p-2'>
-					<div className='col-4'>
-						<div className='form-check'>
-							<input
-								type='checkbox'
-								className='form-check-input'
-								checked={this.state.showMessage}
-								onChange={this.handleChange}
-							/>
-							<label className='form-check-label'>Show</label>
-						</div>
-						{this.state.showMessage && (
-							<HooksMessage
-								message={`Counter: ${this.state.counter}`}
-								callback={this.incrementCounter}
-								text='Increment Counter'
-							/>
-						)}
+					<div className='col-6'>
+						<Message
+							message={`Counter: ${this.state.counterLeft}`}
+							callback={() => this.incrementCounter('left')}
+							text='Increment Counter Left'
+						/>
 					</div>
-					<div className='col-4'>
-						<List />
-					</div>
-					<div className='col-4'>
-						<ExternalCounter />
+					<div className='col-6'>
+						<Message
+							message={`Counter: ${this.state.counterRight}`}
+							callback={() => this.incrementCounter('right')}
+							text='Increment Counter Right'
+						/>
 					</div>
 				</div>
 			</div>
