@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { SortedList } from './SortedList';
 import { GeneralList } from './GeneralList';
 import { ProController } from './ProController';
+import { LogToConsole } from './LogToConsole';
 
-const ProList = ProController(SortedList);
+const ProList = ProController(
+	LogToConsole(SortedList, 'Sorted List', true, true, true),
+);
 
 export default class App extends Component {
 	constructor(props) {
