@@ -25,6 +25,7 @@ export class SortedList extends Component {
 				<div className='text-center m-2'>
 					<ActionButton
 						theme='primary'
+						proMode={this.props.proMode}
 						text='Sort'
 						callback={this.toggleSort}
 					/>
