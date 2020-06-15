@@ -15,7 +15,9 @@ export class Display extends Component {
 				{keys.map(key => (
 					<div key={key} className='row h5 text-white'>
 						<div className='col-3'>{key}</div>
-						<div className='col-9'>{this.props.data[key]}</div>
+						<div className='col-9'>
+							{this.formatValue(this.props.data[key])}
+						</div>
 					</div>
 				))}
 			</div>
