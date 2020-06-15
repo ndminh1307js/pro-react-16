@@ -2,17 +2,34 @@ import React, { Component } from 'react';
 import { ProModeContext } from './ProModeContext';
 
 export class ActionButton extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			clickCount: 0,
+		};
+	}
+
+	handleClick = () => {
+		this.setState({ clickCount: this.state.clickCount + 1 });
+		this.props.callback();
+	};
+
 	render() {
 		return (
 			<ProModeContext.Consumer>
-				{contextData => (
-					<button
-						className={this.getClasses(contextData.proMode)}
-						onClick={this.props.callback}
-						disabled={!contextData.proMode}>
-						{this.props.text}
-					</button>
-				)}
+				{contextData => {
+					if (this.state.clickCount > 1) {
+						throw new Error('Click Counter Error');
+					}
+					return (
+						<button
+							className={this.getClasses(contextData.proMode)}
+							onClick={this.handleClick}
+							disabled={!contextData.proMode}>
+							{this.props.text}
+						</button>
+					);
+				}}
 			</ProModeContext.Consumer>
 		);
 	}
