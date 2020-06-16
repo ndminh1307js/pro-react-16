@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ValidateData } from './validation';
 import { ValidationContext } from './ValidationContext';
+import { ValidateForm } from './wholeFormValidation';
 
 export class FormValidator extends Component {
 	constructor(props) {
@@ -14,9 +15,16 @@ export class FormValidator extends Component {
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		return {
-			errors: ValidateData(props.data, props.rules),
-		};
+		state.errors = ValidateData(props.data, props.rules);
+
+		if (state.formSubmitted && Object.keys(state.errors).length === 0) {
+			let formErrors = props.validateForm(props.data);
+			if (formErrors.length > 0) {
+				state.errors.form = formErrors;
+			}
+		}
+
+		return state;
 	}
 
 	get formValid() {
@@ -31,7 +39,10 @@ export class FormValidator extends Component {
 	handleClick = () => {
 		this.setState({ formSubmitted: true }, () => {
 			if (this.formValid) {
-				this.props.submit(this.props.data);
+				let formErrors = this.props.validateForm(this.props.data);
+				if (formErrors.length > 0) {
+					this.props.submit(this.props.data);
+				}
 			}
 		});
 	};
