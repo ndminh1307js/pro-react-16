@@ -22,7 +22,8 @@ export class Editor extends Component {
     }
 
     this.state = {
-      errors: {}
+      errors: {},
+      wrapContent: false
     }
   }
 
@@ -63,26 +64,69 @@ export class Editor extends Component {
     return valid;
   }
 
-  render() {
-    return <React.Fragment>
-      {Object.values(this.formElements).map(elem =>
-        <div className="form-group p-2" key={elem.name}>
-          <label>{elem.label}</label>
-          <input className='form-control'
-            name={elem.name}
-            ref={this.setElement}
-            onChange={() => this.validateFormElement(elem.name)}
-            {...elem.validation} />
-          <ValidationDisplay errors={this.state.errors[elem.name]} />
-        </div>
-      )}
+  toggleWrap = () => {
+    this.setState({ wrapContent: !this.state.wrapContent });
+  }
 
-      <div className='text-center p-2'>
-        <button className="btn btn-primary btn-block btn-big"
-          onClick={this.handleAdd}>
-          Add
-        </button>
+  wrapContent(content) {
+    return this.state.wrapContent
+      ?
+      <div className="bg-secondary p-2">
+        <div className="bg-light">
+          {content}
+        </div>
       </div>
-    </React.Fragment>
+      : content;
+  }
+
+  getSnapshotBeforeUpdate(props, state) {
+    return Object.values(this.formElements).map(item => {
+      return {
+        name: [item.name],
+        value: [item.element.value]
+      }
+    })
+  }
+
+  componentDidUpdate(oldProps, oldState, snapshot) {
+    snapshot.forEach(item => {
+      let element = this.formElements[item.name].element;
+      if (element.value !== item.value) {
+        element.value = item.value;
+      }
+    })
+  }
+
+  render() {
+    return this.wrapContent(
+      <React.Fragment>
+        <div className="form-group text-center p-2">
+          <div className="form-check">
+            <input type="checkbox" className="form-check-input"
+              checked={this.state.wrapContent}
+              onChange={this.toggleWrap} />
+            <label className="form-check-label">Wrap Content</label>
+          </div>
+        </div>
+        {Object.values(this.formElements).map(elem =>
+          <div className="form-group p-2" key={elem.name}>
+            <label>{elem.label}</label>
+            <input className='form-control'
+              name={elem.name}
+              ref={this.setElement}
+              onChange={() => this.validateFormElement(elem.name)}
+              {...elem.validation} />
+            <ValidationDisplay errors={this.state.errors[elem.name]} />
+          </div>
+        )}
+
+        <div className='text-center p-2'>
+          <button className="btn btn-primary btn-block btn-big"
+            onClick={this.handleAdd}>
+            Add
+        </button>
+        </div>
+      </React.Fragment>
+    )
   }
 }
