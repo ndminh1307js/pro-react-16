@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Editor } from './Editor';
 import { ProductTable } from './ProductTable';
+import { ColorInvalidElements } from './jQueryColorizer';
 
 export default class App extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ export default class App extends Component {
     this.state = {
       products: []
     }
+    this.editorRef = React.createRef();
   }
 
   addProduct = (product) => {
@@ -16,9 +18,20 @@ export default class App extends Component {
     }
   }
 
+  colorFields = () => {
+    ColorInvalidElements(this.editorRef.current);
+  }
+
   render() {
     return <div>
-      <Editor callback={this.addProduct} />
+      <div className="text-center m-2">
+        <button className="btn btn-primary" onClick={this.colorFields}>
+          jQuery
+        </button>
+      </div>
+      <div ref={this.editorRef}>
+        <Editor callback={this.addProduct} />
+      </div>
       <h6 className="bg-secondary text-white m-2 p-2">
         <div className="m-2">
           {
