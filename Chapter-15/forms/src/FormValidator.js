@@ -28,7 +28,7 @@ export class FormValidator extends Component {
 		this.setState(state => (state.dirty[name] = true));
 	};
 
-	handleClick = event => {
+	handleClick = () => {
 		this.setState({ formSubmitted: true }, () => {
 			if (this.formValid) {
 				this.props.submit(this.props.data);
