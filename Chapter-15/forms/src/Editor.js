@@ -24,18 +24,15 @@ export class Editor extends Component {
 		);
 	};
 
-	updateFormValueOptions = event => {
-		let options = [...event.target.options]
-			.filter(op => op.selected)
-			.map(op => op.value);
-		this.setState({ [event.target.name]: options }, () =>
-			this.props.submit(this.state),
-		);
-	};
-
 	updateFormValueCheck = event => {
-		this.setState({ [event.target.name]: event.target.checked }, () =>
-			this.props.submit(this.state),
+		event.persist();
+		this.setState(
+			{
+				toppings: event.target.checked
+					? [...this.state.toppings, event.target.name]
+					: this.state.toppings.filter(top => top !== event.target.name),
+			},
+			() => this.props.submit(this.state),
 		);
 	};
 
@@ -68,29 +65,18 @@ export class Editor extends Component {
 				</div>
 				<div className='form-group'>
 					<label>Ice Cream Toppings</label>
-					<select
-						className='form-control'
-						name='toppings'
-						multiple={true}
-						onChange={this.updateFormValueOptions}>
-						{this.toppings.map(t => (
-							<option key={t} value={t}>
-								{t}
-							</option>
-						))}
-					</select>
-				</div>
-				<div className='form-group'>
-					<div className='form-check'>
-						<input
-							className='form-check-input'
-							type='checkbox'
-							name='twoScoops'
-							checked={this.state.twoScoops}
-							onChange={this.updateFormValueCheck}
-						/>
-						<label className='form-check-label'>Two Scoops</label>
-					</div>
+					{this.toppings.map(t => (
+						<div className='form-check' key={t}>
+							<input
+								className='form-check-input'
+								type='checkbox'
+								name={t}
+								checked={this.state.toppings.indexOf(t) > -1}
+								onChange={this.updateFormValueCheck}
+							/>
+							<label className='form-check-label'>{t}</label>
+						</div>
+					))}
 				</div>
 			</div>
 		);
