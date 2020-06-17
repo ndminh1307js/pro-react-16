@@ -12,7 +12,7 @@ export class ProductDisplay extends Component {
     }
   }
 
-  startEditting = product => {
+  startEditting = (product) => {
     this.setState({ showEditor: true, selectedProduct: product });
   }
 
@@ -24,7 +24,7 @@ export class ProductDisplay extends Component {
     this.setState({ showEditor: false, selectedProduct: {} });
   }
 
-  saveProduct = product => {
+  saveProduct = (product) => {
     this.props.saveCallback(product);
     this.setState({ showEditor: false, selectedProduct: null });
   }
@@ -38,13 +38,13 @@ export class ProductDisplay extends Component {
         cancelCallback={this.cancelEditting} />
     } else {
       return <div className="m-2">
-        <div className="text-center">
+        <div className="text-center p-2">
           <button className="btn btn-primary"
             onClick={this.createProduct}>
             Create Product
           </button>
         </div>
-        <ProductTable products={this.props.product}
+        <ProductTable products={this.props.products}
           editCallback={this.startEditting}
           deleteCallback={this.props.deleteCallback} />
       </div>

@@ -18,7 +18,7 @@ export class ProductTable extends Component {
           this.props.products.map(p =>
             <ProductTableRow key={p.id} product={p}
               editCallback={this.props.editCallback}
-              delete={this.props.deleteCallback} />)
+              deleteCallback={this.props.deleteCallback} />)
         }
       </tbody>
     </table>

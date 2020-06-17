@@ -5,10 +5,10 @@ export class ProductEditor extends Component {
     super(props);
     this.state = {
       formData: {
-        id: props.id || '',
-        name: props.name || '',
-        category: props.category || '',
-        price: props.price || ''
+        id: props.product.id || '',
+        name: props.product.name || '',
+        category: props.product.category || '',
+        price: props.product.price || ''
       }
     }
   }

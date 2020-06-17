@@ -38,15 +38,15 @@ export class SupplierDisplay extends Component {
         cancelCallback={this.cancelEditting} />
     } else {
       return <div className="m-2">
-        <SupplierTable suppliers={this.props.suppliers}
-          editCallback={this.startEditting}
-          deleteCallback={this.props.deleteCallback} />
-        <div className="text-center">
+        <div className="text-center p-2">
           <button className='btn btn-primary m-1'
             onClick={this.createSupplier}>
             Create Supplier
           </button>
         </div>
+        <SupplierTable suppliers={this.props.suppliers}
+          editCallback={this.startEditting}
+          deleteCallback={this.props.deleteCallback} />
       </div>
     }
   }
