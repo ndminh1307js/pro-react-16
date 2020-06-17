@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
 
-export class ProductEditor extends Component {
+export class SupplierEditor extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       formData: {
-        id: props.id || '',
-        name: props.name || '',
-        category: props.category || '',
-        price: props.price || ''
+        id: props.supplier.id || '',
+        name: props.supplier.name || '',
+        city: props.supplier.city || '',
+        products: props.supplier.products || []
       }
     }
   }
 
   handleChange = event => {
     event.persist();
-    this.setState(state => state.formData[event.target.name] = event.target.value);
+    this.setState(state => state.formData[event.target.name] =
+      event.target.name === 'products'
+        ? event.target.value.split(',').map(val => val.trim())
+        : event.target.value)
   }
 
   handleClick = () => {
-    this.props.saveCallback(this.state.formData);
+    this.props.saveCallback({
+      ...this.state.formData,
+      products: this.state.formData.products.map(val => Number(val))
+    });
   }
 
   render() {
@@ -38,23 +45,23 @@ export class ProductEditor extends Component {
           onChange={this.handleChange} />
       </div>
       <div className="form-group">
-        <label>Category</label>
-        <input className='form-control' name='category'
-          value={this.state.formData.category}
+        <label>City</label>
+        <input className='form-control' name='city'
+          value={this.state.formData.city}
           onChange={this.handleChange} />
       </div>
       <div className="form-group">
-        <label>Price</label>
-        <input className='form-control' name='price'
-          value={this.state.formData.price}
+        <label>Products</label>
+        <input className='form-control' name='products'
+          value={this.state.formData.products}
           onChange={this.handleChange} />
       </div>
       <div className="text-center">
-        <button className="btn btn-primary"
+        <button className="btn btn-primary m-1"
           onClick={this.handleClick}>
           Save
         </button>
-        <button className="btn btn-secondary"
+        <button className="btn btn-secondary m-1"
           onClick={this.props.cancelCallback}>
           Cancel
         </button>
