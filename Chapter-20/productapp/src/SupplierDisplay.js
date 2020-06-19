@@ -35,7 +35,7 @@ export const SupplierDisplay = connectFunction(
               Create Supplier
           </button>
           </div>
-          <ConnectedTable />
+          <ConnectedTable needSuppliers={true} />
         </div>
       }
     }
