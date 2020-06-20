@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export class RouteInfo extends Component {
 
@@ -19,8 +20,12 @@ export class RouteInfo extends Component {
         Route Info
       </h4>
       <table className='table table-sm table-striped bg-light'>
-        {this.renderTable('Match', this.props.match, ['url', 'path', 'params', 'isExact'])}
+        {this.renderTable('Match', this.props.location, ['key', 'pathname', 'search', 'hash', 'state'])}
       </table>
+      <div className="text-center m-2 bg-light">
+        <Link className='btn btn-primary m-2'
+          to={this.props.location}>Location</Link>
+      </div>
     </div>
   }
 }
