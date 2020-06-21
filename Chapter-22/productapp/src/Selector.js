@@ -4,6 +4,7 @@ import { BrowserRouter as Router, NavLink, Route, Switch, Redirect }
 import { ProductDisplay } from './ProductDisplay';
 import { SupplierDisplay } from './SupplierDisplay';
 import { RouteInfo } from './routing/RouteInfo';
+import { ToggleLink } from './routing/ToggleLink';
 
 export class Selector extends Component {
 
@@ -14,21 +15,11 @@ export class Selector extends Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-2">
-            <NavLink className='btn btn-primary btn-block m-2'
-              activeClassName='active'
-              to='/products'>Products</NavLink>
-            <NavLink className='btn btn-primary btn-block m-2'
-              activeClassName='active'
-              to='/suppliers'>Suppliers</NavLink>
-            <NavLink className='btn btn-primary btn-block m-2'
-              activeClassName='active'
-              to='/info/match'>Match Info</NavLink>
-            <NavLink className='btn btn-primary btn-block m-2'
-              activeClassName='active'
-              to='/info/location'>Location Info</NavLink>
-            <NavLink className='btn btn-primary btn-block m-2'
-              activeClassName='active'
-              to='/info'>All Info</NavLink>
+            <ToggleLink to='/products'>Products</ToggleLink>
+            <ToggleLink to='/Suppliers'>Suppliers</ToggleLink>
+            <ToggleLink to='/info/match'>Match Info</ToggleLink>
+            <ToggleLink to='/info/location'>Location Info</ToggleLink>
+            <ToggleLink to='/info'>All Info</ToggleLink>
           </div>
           <div className="col-10">
             <Switch>
