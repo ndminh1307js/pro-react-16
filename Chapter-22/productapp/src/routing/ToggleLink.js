@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 export class ToggleLink extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      doRedirect: false
+    }
+  }
+
+  handleClick = (history) => {
+    this.setState({ doRedirect: true },
+      () => this.setState({ doRedirect: false }));
+  }
+
   render() {
     return <Route path={this.props.to} exact={this.props.exact}
       children={routeProps => {
@@ -12,9 +25,12 @@ export class ToggleLink extends Component {
         const combinedClasses =
           `${baseClasses} ${routeProps.match ? activeClass : inactiveClass}`;
 
-        return <Link to={this.props.to} className={combinedClasses}>
-          {this.props.children}
-        </Link>
+        return <React.Fragment>
+          {this.state.doRedirect && <Redirect to={this.props.to} />}
+          <button className={combinedClasses} onClick={this.handleClick}>
+            {this.props.children}
+          </button>
+        </React.Fragment>
       }}
     />
   }
