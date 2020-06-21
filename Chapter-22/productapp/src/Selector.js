@@ -26,12 +26,15 @@ export class Selector extends Component {
             <NavLink className='btn btn-primary btn-block m-2'
               activeClassName='active'
               to='/info/location'>Location Info</NavLink>
+            <NavLink className='btn btn-primary btn-block m-2'
+              activeClassName='active'
+              to='/info'>All Info</NavLink>
           </div>
           <div className="col-10">
             <Switch>
               <Route path='/products' component={ProductDisplay} />
               <Route path='/suppliers' component={SupplierDisplay} />
-              <Route path='/info/:datatype' component={RouteInfo} />
+              <Route path='/info/:datatype?' component={RouteInfo} />
               <Redirect to='/products' />
             </Switch>
           </div>

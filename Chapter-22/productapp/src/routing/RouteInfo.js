@@ -20,10 +20,12 @@ export class RouteInfo extends Component {
         Route Info
       </h4>
       <table className='table table-sm table-striped bg-light'>
-        {this.props.match.params.datatype === 'match'
+        {(this.props.match.params.datatype === undefined ||
+          this.props.match.params.datatype === 'match')
           && this.renderTable('Match', this.props.match,
             ['url', 'path', 'params', 'isExact'])}
-        {this.props.match.params.datatype === 'location'
+        {(this.props.match.params.datatype === undefined ||
+          this.props.match.params.datatype === 'location')
           && this.renderTable('Location', this.props.location,
             ['key', 'pathname', 'search', 'hash', 'state'])}
       </table>
