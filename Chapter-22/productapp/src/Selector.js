@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect, withRouter }
+import { BrowserRouter as Router, Route, Switch, Redirect, withRouter, Prompt }
   from 'react-router-dom';
 import { ProductDisplay } from './ProductDisplay';
 import { SupplierDisplay } from './SupplierDisplay';
@@ -24,6 +24,7 @@ export class Selector extends Component {
             <ToggleLink to='/info'>All Info</ToggleLink>
           </div>
           <div className="col-10">
+            <Prompt message={location => `Do you want to navigate to ${location.pathname}`} />
             <RouteInfoHOC />
             <Switch>
               <Route path='/products' component={ProductDisplay} />
